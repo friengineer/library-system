@@ -1,5 +1,3 @@
-// function definitions
-
 void startup();
 void makeAccount();
 void login();

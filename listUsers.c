@@ -4,20 +4,15 @@
 #include "register.h"
 
 // displays all of the registered users
-
-void listUsers(){
-
-  for (int i=0; i<100; i++){
-
-    if (users[i].id != 0){
-
+void listUsers() {
+  for (int i = 0; i < 100; i++) {
+    if (users[i].id != 0) {
       printf("%i,%s,%s,", users[i].id, users[i].firstName, users[i].surname);
 
-      for (int k=0; k<15; k++){
-
+      for (int k = 0; k < 15; k++) {
         printf("%i/", users[i].borrowed[k]);
 
-        if (k == 14){
+        if (k == 14) {
           printf("\n");
         }
       }
