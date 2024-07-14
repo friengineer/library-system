@@ -1,3 +1,1 @@
-// function definitions
-
 void listUsers();

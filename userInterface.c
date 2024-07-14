@@ -13,9 +13,7 @@
 #include "userInterface.h"
 
 // displays the initial menu
-
 void startup(){
-
   initialiseBooks();
   initialiseUsers();
 
@@ -31,8 +29,7 @@ void startup(){
   users[1].borrowed[1] = 3;
   users[1].borrowed[2] = 2;
 
-  while (true){
-
+  while (true) {
     int choice1 = 0;
 
     printf("\nWelcome to the library!\n");
@@ -42,33 +39,26 @@ void startup(){
 
     scanf("%i", &choice1);
 
-    switch (choice1){
-
+    switch (choice1) {
       case 1:
-
         login();
         break;
 
       case 2:
-
         makeAccount();
         break;
 
       default:
-
         printf("\nPlease enter a valid command number.\n");
     }
   }
 }
 
 // creates a student account using the information given
-
-void makeAccount(){
-
+void makeAccount() {
   char firstName[25];
   char surname[25];
 
-  // listUsers();
   printf("\nEnter the following details about yourself:\n");
 
   printf("\nFirst name: ");
@@ -77,37 +67,30 @@ void makeAccount(){
   scanf("%s", surname);
 
   printf("\nYou have been registered. Your account's ID number is %i.\n", registerUser(firstName, surname));
-  // listUsers();
 }
 
 // checks if the account being logged on exists
-
-void login(){
-
+void login() {
   printf("\nPlease enter your account's ID number: ");
 
   int id;
   scanf("%i", &id);
 
-  if (id == 0){
+  if (id == 0) {
     menu(id);
   }
-  else{
-
+  else {
     bool found = false;
 
-    for (int i=0; i<100; i++){
-
-      if (id == users[i].id){
-
+    for (int i = 0; i < 100; i++) {
+      if (id == users[i].id) {
         found = true;
         menu(id);
         break;
       }
     }
 
-    if (found == false){
-
+    if (found == false) {
       printf("\nThere is no account with this ID. Please register and try logging in again.\n");
     }
   }
@@ -115,13 +98,10 @@ void login(){
 
 // displays the appropriate commands for the librarian and student accounts. Gets the information from
 // the user required to execute the functions for the corresponding menu options
-
-void menu(int account){
-
+void menu(int account) {
   int choice = 0;
 
-  if (account == 0){
-
+  if (account == 0) {
     char title[150];
     char authorFirstName[25];
     char authorSurname[25];
@@ -129,7 +109,7 @@ void menu(int account){
 
     printf("\nWelcome librarian.\n");
 
-    while (true){
+    while (true) {
 
       printf("\n1. Add a book to the library catalogue\n");
       printf("2. Remove a book from the library catalogue\n");
@@ -142,10 +122,8 @@ void menu(int account){
       scanf("%i", &choice);
       getchar();
 
-      switch (choice){
-
+      switch (choice) {
         case 1:
-          // listBooks();
           printf("\nEnter the following details about the book you want to add to the catalogue:\n");
 
           printf("\nTitle: ");
@@ -157,71 +135,56 @@ void menu(int account){
 
           add(title, authorFirstName, authorSurname);
           printf("\nThe book has been added to the catalogue.\n");
-          // listBooks();
           break;
 
         case 2:
-
-          // listBooks();
           printf("\nEnter the ID of the book that you want to remove from the catalogue: ");
           scanf("%i", &bookId);
 
-          if (bookId < 1){
-
+          if (bookId < 1) {
             printf("\nEnter a value greater than 0.\n");
           }
-          else{
-
-            if (removeBook(bookId) == 0){
-
+          else {
+            if (removeBook(bookId) == 0) {
               printf("\nThe book has been removed from the catalogue.\n");
             }
-            else{
-
+            else {
               printf("\nThere is no book in the catalogue with the entered ID.\n");
             }
-            // listBooks();
           }
 
           break;
 
         case 3:
-
           printf("\nBelow are all the books that are in the catalogue:\n\n");
           listBooks();
           break;
 
         case 4:
-
           printf("\nBelow are all the registered users:\n\n");
           listUsers();
           break;
 
         case 5:
-
           printf("\nYou have been logged out.\n");
           return;
 
         case 6:
-
           printf("\nThe program has been quit.\n", choice);
           exit(0);
 
         default:
-
           printf("\nPlease enter a valid command number.\n");
       }
     }
   }
-  else{
-
+  else {
     char searchTerm[150];
     int bookId2 = 0;
 
-    printf("\nWelcome %s %s.\n", users[account-1].firstName, users[account-1].surname);
+    printf("\nWelcome %s %s.\n", users[account - 1].firstName, users[account - 1].surname);
 
-    while (true){
-
+    while (true) {
       printf("\n1. List all books in the library catalogue\n");
       printf("2. Search the library catalogue\n");
       printf("3. Borrow a book\n");
@@ -232,17 +195,13 @@ void menu(int account){
       scanf("%i", &choice);
       getchar();
 
-      switch (choice){
-
+      switch (choice) {
         case 1:
-
           printf("\nBelow are all the books that are in the catalogue:\n\n");
           listBooks();
           break;
 
         case 2:
-
-          // listBooks();
           initialiseMatchedBooks();
           printf("\nEnter your search term: ");
 
@@ -256,74 +215,57 @@ void menu(int account){
           break;
 
         case 3:
-
-          // listUsers();
           printf("\nEnter the ID of the book that you want to borrow: ");
 
           scanf("%i", &bookId2);
 
-          if (bookId2 < 1){
-
+          if (bookId2 < 1) {
             printf("\nEnter a value greater than 0.\n");
           }
-          else{
-
+          else {
             int result = borrowBook(account, bookId2);
 
-            if (result == 0){
-
+            if (result == 0) {
               printf("\nYou are currently borrowing this book.\n");
             }
-            else if (result == 1){
-
+            else if (result == 1) {
               printf("\nThe book has been added to your borrowed books.\n");
             }
-            else if (result == 2){
-
+            else if (result == 2) {
               printf("\nYou have reached your borrowed books quota. Please return a book before borrowing another.\n");
             }
             else {
 
               printf("\nThere is no book in the catalogue with the entered ID.\n");
             }
-            // listUsers();
           }
 
           break;
 
         case 4:
-
-          // listUsers();
           printf("\nEnter the ID of the book that you want to return: ");
 
           scanf("%i", &bookId2);
 
-          if (bookId2 < 1){
-
+          if (bookId2 < 1) {
             printf("\nEnter a value greater than 0.\n");
           }
-          else{
-
-            if (returnBook(account, bookId2) == 0){
-
+          else {
+            if (returnBook(account, bookId2) == 0) {
               printf("\nThe book has been returned.\n");
             }
-            else{
-
+            else {
               printf("\nYou have not borrowed this book.\n");
             }
-            // listUsers();
           }
 
           break;
 
         case 5:
-
           printf("\nYou have been logged out.\n");
           return;
 
         default:
-
           printf("\nPlease enter a valid command number.\n");
       }
     }

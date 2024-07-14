@@ -1,5 +1,4 @@
 // Book data structure
-
 typedef struct {
   int id;
   char title[150];
